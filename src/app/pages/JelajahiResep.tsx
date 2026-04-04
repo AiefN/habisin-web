@@ -1,7 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, SlidersHorizontal, ChevronDown, X, Filter } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
-import { recipes } from "../data/recipes";
 
 const cuisines = ["Semua", "Italia", "Jepang", "Korea", "Thailand", "Indonesia"];
 const difficulties = ["Semua", "Mudah", "Sedang", "Sulit"];
@@ -29,6 +28,28 @@ export function JelajahiResep() {
   const [selectedCookTime, setSelectedCookTime] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [recipes, setRecipes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const response = await fetch("http://localhost:3002/api/recipes");
+        if (!response.ok) {
+          throw new Error("Failed to fetch recipes");
+        }
+        const data = await response.json();
+        setRecipes(data);
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+        setRecipes([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipes();
+  }, []);
 
   const filtered = useMemo(() => {
     return recipes.filter((r) => {
@@ -259,7 +280,12 @@ export function JelajahiResep() {
               </select>
             </div>
 
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="text-center py-24">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6B7C45]"></div>
+                <p style={{ color: "#8B7355", fontSize: "15px", marginTop: "10px" }}>Memuat resep...</p>
+              </div>
+            ) : filtered.length === 0 ? (
               <div className="text-center py-24 rounded-2xl" style={{ backgroundColor: "#FFFBF5", border: "1px solid rgba(212, 169, 106, 0.15)" }}>
                 <p style={{ fontSize: "48px", marginBottom: "12px" }}>🍳</p>
                 <p style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "20px", fontWeight: 600, marginBottom: "8px" }}>

@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import { Wallet, Search, ChefHat, Users, Minus, Plus, Flame, Leaf, Zap, Heart } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
-import { recipes } from "../data/recipes";
 
 const filterOptions = [
   { id: "pedas", label: "Pedas", icon: Flame, color: "#C4472A" },
@@ -22,6 +21,8 @@ export function BudgetRecipe() {
   const [servings, setServings] = useState(2);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [searched, setSearched] = useState(false);
+  const [results, setResults] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const totalBudget = budget * servings;
 
@@ -39,23 +40,45 @@ export function BudgetRecipe() {
     setActiveFilters((prev) => prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]);
   };
 
-  const results = useMemo(() => {
-    if (!searched) return [];
-    return recipes.filter((r) => {
-      const withinBudget = r.pricePerServing <= budget;
-      const matchFilters = activeFilters.length === 0 || activeFilters.some((f) => {
-        if (f === "pedas") return r.moods.includes("Pedas");
-        if (f === "sehat") return r.type.some((t) => t.toLowerCase().includes("sehat")) || r.moods.includes("Sehat");
-        if (f === "vegetarian") return r.type.some((t) => t.toLowerCase().includes("vegetarian"));
-        if (f === "cepat") return r.cookTimeMinutes <= 20;
-        return true;
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:3002/api/budget", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ budget }),
       });
-      return withinBudget && matchFilters;
-    });
-  }, [searched, budget, activeFilters]);
 
-  const handleSearch = () => {
-    setSearched(true);
+      if (!response.ok) {
+        throw new Error("Failed to fetch recipes");
+      }
+
+      const data = await response.json();
+      let filteredRecipes = data.recipes;
+
+      // Apply additional filters on frontend
+      if (activeFilters.length > 0) {
+        filteredRecipes = filteredRecipes.filter((r: any) => {
+          return activeFilters.some((f) => {
+            if (f === "pedas") return r.moods.includes("Pedas");
+            if (f === "sehat") return r.type.some((t: string) => t.toLowerCase().includes("sehat")) || r.moods.includes("Sehat");
+            if (f === "vegetarian") return r.type.some((t: string) => t.toLowerCase().includes("vegetarian"));
+            if (f === "cepat") return r.cookTimeMinutes <= 20;
+            return true;
+          });
+        });
+      }
+
+      setResults(filteredRecipes);
+      setSearched(true);
+    } catch (error) {
+      console.error("Error:", error);
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -247,7 +270,14 @@ export function BudgetRecipe() {
         </div>
 
         {/* ─── RESULTS ─── */}
-        {searched && (
+        {loading && (
+          <div className="text-center py-20">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6B7C45]"></div>
+            <p style={{ color: "#8B7355", fontSize: "15px", marginTop: "10px" }}>Mencari resep sesuai budget...</p>
+          </div>
+        )}
+
+        {searched && !loading && (
           <div>
             {results.length > 0 ? (
               <>
