@@ -93,32 +93,39 @@ export function LandingPage() {
             <div className="flex flex-wrap gap-4">
               <Link
                 to="/resep"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-semibold transition-all duration-300 hover:-translate-y-0.5"
-                style={{ backgroundColor: "#8B5E3C", boxShadow: "0 4px 20px rgba(139, 94, 60, 0.4)" }}
+                className="flex items-center gap-2 px-8 py-4 rounded-xl text-white transition-all duration-300 hover:-translate-y-1"
+                style={{ backgroundColor: "#EE3F24", boxShadow: "0 4px 20px rgba(238, 63, 36, 0.4)", fontSize: "16px", fontWeight: 700 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#7A5234";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 25px rgba(139, 94, 60, 0.6)";
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#D63418";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 30px rgba(238, 63, 36, 0.6)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#8B5E3C";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(139, 94, 60, 0.4)";
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#EE3F24";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(238, 63, 36, 0.4)";
                 }}
               >
                 <BookOpen className="w-5 h-5" />
-                Jelajahi Resep
+                Masak Sekarang
               </Link>
               <Link
                 to="/mood"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                className="flex items-center gap-2 px-8 py-4 rounded-xl transition-all duration-300 hover:-translate-y-1"
                 style={{
-                  border: "2px solid rgba(212, 169, 106, 0.6)",
-                  color: "#D4A96A",
-                  backdropFilter: "blur(4px)",
-                  backgroundColor: "rgba(212, 169, 106, 0.08)",
+                  border: "2px solid #EE3F24",
+                  color: "#EE3F24",
+                  backgroundColor: "transparent",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#EE3F2410";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
                 }}
               >
                 <Star className="w-5 h-5" />
-                Cari Makanan Berdasarkan Mood
+                Cari Berdasarkan Mood
               </Link>
             </div>
 
