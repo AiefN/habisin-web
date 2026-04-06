@@ -14,11 +14,9 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 
-const chatRoute = require("./routes/chat");
 const recipesRoute = require("./routes/recipes");
 const budgetRoute = require("./routes/budget");
 
-app.use("/api/chat", chatRoute);
 app.use("/api/recipes", recipesRoute);
 app.use("/api/budget", budgetRoute);
 

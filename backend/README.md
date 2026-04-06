@@ -9,9 +9,9 @@ Backend untuk aplikasi Habisin menggunakan Node.js dan Express.
    npm install
    ```
 
-2. Buat file `.env` dan tambahkan API key Gemini:
+2. Buat file `.env` dan tambahkan konfigurasi database:
    ```
-   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   MONGO_URI=your_mongodb_connection_string
    PORT=3000
    ```
 
@@ -23,23 +23,6 @@ Backend untuk aplikasi Habisin menggunakan Node.js dan Express.
 Server akan berjalan di `http://localhost:3000`.
 
 ## API Endpoints
-
-### POST /api/chat
-Mengirim pesan ke AI Cooking Assistant.
-
-**Request Body:**
-```json
-{
-  "message": "Apa resep nasi goreng?"
-}
-```
-
-**Response:**
-```json
-{
-  "reply": "Resep nasi goreng..."
-}
-```
 
 ### GET /api/recipes
 Mengambil semua data resep.

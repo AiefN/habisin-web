@@ -56,7 +56,6 @@ export function Footer() {
                 { label: "Jelajahi Resep", to: "/resep" },
                 { label: "Masak by Budget", to: "/budget" },
                 { label: "Mood Finder", to: "/mood" },
-                { label: "AI Assistant", to: "/ai-assistant" },
               ].map((item) => (
                 <li key={item.to}>
                   <Link

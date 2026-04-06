@@ -45,7 +45,6 @@ const achievements = [
   { title: "Zero Waste Hero", desc: "Manfaatkan 5 sisa bahan", icon: "♻️", earned: true },
   { title: "Budget Master", desc: "Masak 20 resep hemat", icon: "💰", earned: true },
   { title: "World Explorer", desc: "Coba masakan 5 negara", icon: "🌍", earned: false },
-  { title: "AI Collaborator", desc: "Gunakan AI Assistant 10x", icon: "🤖", earned: false },
 ];
 
 export function ProfilPengguna() {

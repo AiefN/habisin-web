@@ -143,30 +143,6 @@ export function LandingPage() {
               ))}
             </div>
           </div>
-
-          {/* Right card */}
-          <div className="col-span-12 lg:col-span-5 hidden lg:flex justify-end">
-            <div
-              className="rounded-2xl p-5 w-72"
-              style={{ backgroundColor: "rgba(253, 246, 236, 0.08)", border: "1px solid rgba(212, 169, 106, 0.2)", backdropFilter: "blur(12px)" }}
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "#6B7C45" }} />
-                <span style={{ color: "#D4A96A", fontSize: "12px", fontWeight: 600 }}>AI Cooking Assistant Online</span>
-              </div>
-              <div className="space-y-3">
-                <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(139, 94, 60, 0.3)" }}>
-                  <p style={{ color: "#F5ECD7", fontSize: "13px" }}>👤 Saya punya sisa wortel, bawang, dan nasi. Bisa jadi apa?</p>
-                </div>
-                <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(107, 124, 69, 0.3)" }}>
-                  <p style={{ color: "#F5ECD7", fontSize: "13px" }}>🤖 Saya bisa bantu! Anda bisa membuat nasi goreng sayuran, sup wortel sederhana, atau tumis wortel bawang. Mau resep lengkapnya?</p>
-                </div>
-              </div>
-              <Link to="/ai-assistant" className="block mt-4 text-center py-2 rounded-lg text-sm font-medium" style={{ backgroundColor: "#8B5E3C", color: "white" }}>
-                Coba AI Assistant →
-              </Link>
-            </div>
-          </div>
         </div>
 
         {/* Scroll indicator */}
@@ -323,9 +299,6 @@ export function LandingPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/resep" className="px-8 py-3.5 rounded-xl text-white font-semibold" style={{ backgroundColor: "#8B5E3C" }}>
               Mulai Sekarang — Gratis
-            </Link>
-            <Link to="/ai-assistant" className="px-8 py-3.5 rounded-xl font-semibold" style={{ backgroundColor: "#FFFBF5", color: "#8B5E3C", border: "1.5px solid rgba(139, 94, 60, 0.3)" }}>
-              Coba AI Assistant
             </Link>
           </div>
         </div>
