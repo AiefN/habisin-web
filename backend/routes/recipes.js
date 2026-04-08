@@ -1,11 +1,16 @@
 const express = require("express");
-const Recipe = require("../models/Recipe");
+const { createClient } = require("@supabase/supabase-js");
 const router = express.Router();
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // GET all recipes
 router.get("/", async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const { data: recipes, error } = await supabase.from('recipes').select('*');
+    if (error) throw error;
     res.json(recipes);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -15,7 +20,8 @@ router.get("/", async (req, res) => {
 // GET recipe by ID
 router.get("/:id", async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id);
+    const { data: recipe, error } = await supabase.from('recipes').select('*').eq('id', req.params.id).single();
+    if (error) throw error;
     if (!recipe) {
       return res.status(404).json({ error: "Recipe not found" });
     }
@@ -28,9 +34,9 @@ router.get("/:id", async (req, res) => {
 // POST create new recipe
 router.post("/", async (req, res) => {
   try {
-    const recipe = new Recipe(req.body);
-    await recipe.save();
-    res.json(recipe);
+    const { data: recipe, error } = await supabase.from('recipes').insert([req.body]).select();
+    if (error) throw error;
+    res.json(recipe[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -39,11 +45,12 @@ router.post("/", async (req, res) => {
 // PUT update recipe
 router.put("/:id", async (req, res) => {
   try {
-    const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!recipe) {
+    const { data: recipe, error } = await supabase.from('recipes').update(req.body).eq('id', req.params.id).select();
+    if (error) throw error;
+    if (!recipe || recipe.length === 0) {
       return res.status(404).json({ error: "Recipe not found" });
     }
-    res.json(recipe);
+    res.json(recipe[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -52,11 +59,9 @@ router.put("/:id", async (req, res) => {
 // DELETE recipe
 router.delete("/:id", async (req, res) => {
   try {
-    const recipe = await Recipe.findByIdAndDelete(req.params.id);
-    if (!recipe) {
-      return res.status(404).json({ error: "Recipe not found" });
-    }
-    res.json({ message: "Recipe deleted" });
+    const { error } = await supabase.from('recipes').delete().eq('id', req.params.id);
+    if (error) throw error;
+    res.json({ message: "Recipe deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

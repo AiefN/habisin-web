@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
+const { createClient } = require("@supabase/supabase-js");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
 
@@ -8,11 +8,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
-console.log("MONGO_URI:", process.env.MONGO_URI);
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
+// Setup Supabase client
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+console.log("Supabase connected:", supabaseUrl ? "Yes" : "No");
 
 const recipesRoute = require("./routes/recipes");
 const budgetRoute = require("./routes/budget");
@@ -24,3 +25,5 @@ const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
