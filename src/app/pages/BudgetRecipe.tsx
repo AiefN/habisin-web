@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Wallet, Search, ChefHat, Users, Minus, Plus, Flame, Leaf, Zap, Heart } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
+import { recipes as sampleRecipes } from "../data/recipes";
 
 const filterOptions = [
   { id: "pedas", label: "Pedas", icon: Flame, color: "#C4472A" },
@@ -43,7 +44,7 @@ export function BudgetRecipe() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3002/api/budget", {
+      const response = await fetch("/api/budget", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,12 +52,14 @@ export function BudgetRecipe() {
         body: JSON.stringify({ budget }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch recipes");
-      }
+      let filteredRecipes = sampleRecipes.filter((recipe) => recipe.pricePerServing <= budget);
 
-      const data = await response.json();
-      let filteredRecipes = data.recipes;
+      if (response.ok) {
+        const data = await response.json();
+        if (data && Array.isArray(data.recipes) && data.recipes.length > 0) {
+          filteredRecipes = data.recipes;
+        }
+      }
 
       // Apply additional filters on frontend
       if (activeFilters.length > 0) {
@@ -75,7 +78,9 @@ export function BudgetRecipe() {
       setSearched(true);
     } catch (error) {
       console.error("Error:", error);
-      setResults([]);
+      const fallbackRecipes = sampleRecipes.filter((recipe) => recipe.pricePerServing <= budget);
+      setResults(fallbackRecipes);
+      setSearched(true);
     } finally {
       setLoading(false);
     }

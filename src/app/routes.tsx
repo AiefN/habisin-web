@@ -7,6 +7,8 @@ import { WasteRecipe } from "./pages/WasteRecipe";
 import { BudgetRecipe } from "./pages/BudgetRecipe";
 import { MoodFinder } from "./pages/MoodFinder";
 import { ProfilPengguna } from "./pages/ProfilPengguna";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 
 function NotFound() {
   return (
@@ -39,6 +41,8 @@ export const router = createBrowserRouter([
       { path: "waste-recipe/:slug", Component: WasteRecipe },
       { path: "budget", Component: BudgetRecipe },
       { path: "mood", Component: MoodFinder },
+      { path: "login", Component: Login },
+      { path: "register", Component: Register },
       { path: "profil", Component: ProfilPengguna },
       { path: "*", Component: NotFound },
     ],

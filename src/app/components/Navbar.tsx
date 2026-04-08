@@ -76,7 +76,7 @@ export function Navbar() {
         {/* Auth Buttons */}
         <div className="hidden lg:flex items-center gap-3">
           <Link
-            to="/profil"
+            to="/login"
             className="px-5 py-2 rounded-lg text-sm border transition-all duration-200"
             style={{ borderColor: "#8B5E3C", color: "#D4A96A" }}
             onMouseEnter={(e) => {
@@ -89,7 +89,7 @@ export function Navbar() {
             Masuk
           </Link>
           <Link
-            to="/profil"
+            to="/register"
             className="px-5 py-2 rounded-lg text-sm text-white transition-all duration-200"
             style={{ backgroundColor: "#8B5E3C" }}
             onMouseEnter={(e) => {
@@ -127,10 +127,10 @@ export function Navbar() {
             </Link>
           ))}
           <div className="flex gap-3 mt-4">
-            <Link to="/profil" className="flex-1 text-center py-2 rounded-lg text-sm border" style={{ borderColor: "#8B5E3C", color: "#D4A96A" }} onClick={() => setMenuOpen(false)}>
+            <Link to="/login" className="flex-1 text-center py-2 rounded-lg text-sm border" style={{ borderColor: "#8B5E3C", color: "#D4A96A" }} onClick={() => setMenuOpen(false)}>
               Masuk
             </Link>
-            <Link to="/profil" className="flex-1 text-center py-2 rounded-lg text-sm text-white" style={{ backgroundColor: "#8B5E3C" }} onClick={() => setMenuOpen(false)}>
+            <Link to="/register" className="flex-1 text-center py-2 rounded-lg text-sm text-white" style={{ backgroundColor: "#8B5E3C" }} onClick={() => setMenuOpen(false)}>
               Daftar
             </Link>
           </div>

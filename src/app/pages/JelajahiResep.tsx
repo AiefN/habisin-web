@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Search, SlidersHorizontal, ChevronDown, X, Filter } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
+import { recipes as sampleRecipes } from "../data/recipes";
 
 const cuisines = ["Semua", "Italia", "Jepang", "Korea", "Thailand", "Indonesia"];
 const difficulties = ["Semua", "Mudah", "Sedang", "Sulit"];
@@ -28,21 +29,26 @@ export function JelajahiResep() {
   const [selectedCookTime, setSelectedCookTime] = useState(0);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipes, setRecipes] = useState<any[]>(sampleRecipes);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch("http://localhost:3002/api/recipes");
+        const response = await fetch("/api/recipes");
         if (!response.ok) {
           throw new Error("Failed to fetch recipes");
         }
         const data = await response.json();
-        setRecipes(data);
+
+        if (Array.isArray(data) && data.length > 0) {
+          setRecipes(data);
+        } else {
+          setRecipes(sampleRecipes);
+        }
       } catch (error) {
         console.error("Error fetching recipes:", error);
-        setRecipes([]);
+        setRecipes(sampleRecipes);
       } finally {
         setLoading(false);
       }
