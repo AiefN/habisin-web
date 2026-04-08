@@ -14,12 +14,12 @@ export function WasteRecipe() {
 
   if (!recipe) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center py-32" style={{ backgroundColor: "#FDF6EC", fontFamily: "'Inter', sans-serif" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center py-32" style={{ backgroundColor: "#F5F5F5", fontFamily: "'Inter', sans-serif" }}>
         <p style={{ fontSize: "60px", marginBottom: "16px" }}>🌿</p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "24px", marginBottom: "16px" }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#023820", fontSize: "28px", marginBottom: "16px" }}>
           Resep Tidak Ditemukan
         </h2>
-        <Link to="/resep" className="px-5 py-2 rounded-xl text-sm" style={{ backgroundColor: "#6B7C45", color: "white" }}>
+        <Link to="/resep" className="px-5 py-2 rounded-xl text-sm" style={{ backgroundColor: "#EE3F24", color: "white" }}>
           Kembali ke Resep
         </Link>
       </div>
@@ -29,18 +29,18 @@ export function WasteRecipe() {
   const otherSlugs = Object.keys(wasteRecipes).filter((s) => s !== slug).slice(0, 3);
 
   return (
-    <div style={{ backgroundColor: "#FDF6EC", minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ backgroundColor: "#F5F5F5", minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
       {/* Hero Banner */}
       <div
         className="relative py-16 px-8 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #2C1810 0%, #3D2B1F 60%, #4A3420 100%)" }}
+        style={{ background: "linear-gradient(135deg, #023820 0%, #0D6B47 60%, #0F7C52 100%)" }}
       >
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, #6B7C45 0%, transparent 60%)" }} />
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, #F9A11B 0%, transparent 60%)" }} />
         <div className="max-w-[1440px] mx-auto relative z-10">
           <Link
             to="/resep"
             className="inline-flex items-center gap-2 mb-8 text-sm transition-colors"
-            style={{ color: "#A08060" }}
+            style={{ color: "#E8F5E9" }}
           >
             <ArrowLeft className="w-4 h-4" />
             Kembali ke Resep
@@ -49,14 +49,14 @@ export function WasteRecipe() {
           <div className="flex items-center gap-3 mb-5">
             <div
               className="w-12 h-12 rounded-2xl flex items-center justify-center"
-              style={{ backgroundColor: "rgba(107, 124, 69, 0.3)", border: "1px solid rgba(107, 124, 69, 0.5)" }}
+              style={{ backgroundColor: "rgba(238, 63, 36, 0.3)", border: "1px solid rgba(238, 63, 36, 0.5)" }}
             >
-              <Recycle className="w-6 h-6" style={{ color: "#8FBF52" }} />
+              <Recycle className="w-6 h-6" style={{ color: "#F9A11B" }} />
             </div>
             <div>
               <span
                 className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-1"
-                style={{ backgroundColor: "rgba(107, 124, 69, 0.25)", color: "#8FBF52", border: "1px solid rgba(107, 124, 69, 0.4)" }}
+                style={{ backgroundColor: "rgba(238, 63, 36, 0.25)", color: "#FFEFCB", border: "1px solid rgba(238, 63, 36, 0.4)" }}
               >
                 🌱 Resep dari Sisa Bahan
               </span>
@@ -66,8 +66,8 @@ export function WasteRecipe() {
           <h1
             style={{
               fontFamily: "'Playfair Display', serif",
-              color: "#F5ECD7",
-              fontSize: "clamp(28px, 4vw, 52px)",
+              color: "#FFEFCB",
+              fontSize: "clamp(32px, 4vw, 56px)",
               fontWeight: 700,
               lineHeight: 1.2,
               maxWidth: "700px",
@@ -76,17 +76,17 @@ export function WasteRecipe() {
           >
             {recipe.name}
           </h1>
-          <p style={{ color: "#A08060", fontSize: "16px", maxWidth: "580px", lineHeight: 1.7 }}>
+          <p style={{ color: "#E8F5E9", fontSize: "16px", maxWidth: "580px", lineHeight: 1.7 }}>
             {recipe.description}
           </p>
 
           {/* Impact Badge */}
           <div
             className="inline-flex items-center gap-2 mt-6 px-5 py-3 rounded-full"
-            style={{ backgroundColor: "rgba(107, 124, 69, 0.2)", border: "1px solid rgba(107, 124, 69, 0.35)" }}
+            style={{ backgroundColor: "rgba(255, 239, 203, 0.2)", border: "1px solid rgba(255, 239, 203, 0.35)" }}
           >
-            <Leaf className="w-4 h-4" style={{ color: "#8FBF52" }} />
-            <span style={{ color: "#8FBF52", fontSize: "13px" }}>
+            <Leaf className="w-4 h-4" style={{ color: "#F9A11B" }} />
+            <span style={{ color: "#FFEFCB", fontSize: "13px" }}>
               Dengan membuat ini, Anda membantu mengurangi food waste!
             </span>
           </div>

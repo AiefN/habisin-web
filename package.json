@@ -1,7 +1,8 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "cook-smart-waste-less",
+  "description": "A sustainable recipe platform for cooking smart and reducing food waste",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "vite build",

@@ -25,3 +25,88 @@ body {
 .animate-fade-slide-up {
   animation: fadeSlideUp 0.5s ease forwards;
 }
+
+/* ─── BUTTON STYLES ─── */
+.btn-primary {
+  background-color: #EE3F24;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #D63418;
+  box-shadow: 0 8px 30px rgba(238, 63, 36, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid #EE3F24;
+  color: #EE3F24;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #EE3F2410;
+  transform: translateY(-2px);
+}
+
+/* ─── QUICK PROMPTS ─── */
+.quick-prompts {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.quick-prompts button {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  background-color: #FFEFCB;
+  color: #023820;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-prompts button:hover {
+  background-color: #F9A11B;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 161, 27, 0.3);
+}
+
+.prompt-section {
+  text-align: center;
+}
+
+/* ─── FONT SIZES ─── */
+button {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+}

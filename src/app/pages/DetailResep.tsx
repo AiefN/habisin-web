@@ -17,8 +17,8 @@ export function DetailResep() {
     return (
       <div className="flex flex-col items-center justify-center py-32" style={{ fontFamily: "'Inter', sans-serif" }}>
         <p style={{ fontSize: "60px", marginBottom: "16px" }}>🍽️</p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "24px" }}>Resep Tidak Ditemukan</h2>
-        <Link to="/resep" className="mt-6 px-5 py-2 rounded-xl" style={{ backgroundColor: "#8B5E3C", color: "white" }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#023820", fontSize: "28px", fontWeight: 700 }}>Resep Tidak Ditemukan</h2>
+        <Link to="/resep" className="mt-6 px-5 py-2 rounded-xl" style={{ backgroundColor: "#EE3F24", color: "white" }}>
           Kembali ke Resep
         </Link>
       </div>
@@ -45,18 +45,18 @@ export function DetailResep() {
   };
 
   return (
-    <div style={{ backgroundColor: "#FDF6EC", fontFamily: "'Inter', sans-serif", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F5F5F5", fontFamily: "'Inter', sans-serif", minHeight: "100vh" }}>
       {/* Breadcrumb */}
-      <div style={{ backgroundColor: "#FFFBF5", borderBottom: "1px solid rgba(212, 169, 106, 0.15)" }} className="px-8 py-4">
+      <div style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E0E0E0" }} className="px-8 py-4">
         <div className="max-w-[1440px] mx-auto flex items-center gap-2">
-          <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm transition-colors" style={{ color: "#8B7355" }}>
+          <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm transition-colors" style={{ color: "#666666" }}>
             <ArrowLeft className="w-4 h-4" />
             Kembali
           </button>
-          <span style={{ color: "#D4A96A" }}>/</span>
-          <Link to="/resep" style={{ color: "#8B7355" }} className="text-sm hover:text-[#8B5E3C]">Resep</Link>
-          <span style={{ color: "#D4A96A" }}>/</span>
-          <span style={{ color: "#3D2B1F", fontSize: "14px" }}>{recipe.name}</span>
+          <span style={{ color: "#CCCCCC" }}>/</span>
+          <Link to="/resep" style={{ color: "#666666" }} className="text-sm hover:text-[#EE3F24]">Resep</Link>
+          <span style={{ color: "#CCCCCC" }}>/</span>
+          <span style={{ color: "#023820", fontSize: "14px" }}>{recipe.name}</span>
         </div>
       </div>
 
@@ -81,9 +81,9 @@ export function DetailResep() {
                   onClick={() => setSaved(!saved)}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all"
                   style={{
-                    backgroundColor: saved ? "#8B5E3C" : "#FFFBF5",
-                    color: saved ? "white" : "#8B5E3C",
-                    border: `1.5px solid ${saved ? "#8B5E3C" : "rgba(139, 94, 60, 0.3)"}`,
+                    backgroundColor: saved ? "#EE3F24" : "#FFFFFF",
+                    color: saved ? "white" : "#EE3F24",
+                    border: `1.5px solid ${saved ? "#EE3F24" : "rgba(238, 63, 36, 0.3)"}`,
                   }}
                 >
                   <BookmarkPlus className="w-4 h-4" />
@@ -100,11 +100,11 @@ export function DetailResep() {
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mt-4">
-                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: "#F5ECD7", color: "#8B5E3C" }}>
+                <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: "#FFF8E1", color: "#F9A11B" }}>
                   {recipe.flag} {recipe.origin}
                 </span>
                 {recipe.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: "#EFF4E8", color: "#6B7C45" }}>
+                  <span key={tag} className="px-3 py-1 rounded-full text-xs" style={{ backgroundColor: "#E8F5E9", color: "#023820" }}>
                     {tag}
                   </span>
                 ))}
@@ -114,30 +114,30 @@ export function DetailResep() {
 
           {/* Right: Info */}
           <div className="col-span-12 lg:col-span-7">
-            <h1 style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "clamp(28px, 4vw, 46px)", fontWeight: 700, lineHeight: 1.2, marginBottom: "14px" }}>
+            <h1 style={{ fontFamily: "'Playfair Display', serif", color: "#023820", fontSize: "clamp(28px, 4vw, 46px)", fontWeight: 700, lineHeight: 1.2, marginBottom: "14px" }}>
               {recipe.name}
             </h1>
-            <p style={{ color: "#8B7355", fontSize: "16px", lineHeight: 1.75, marginBottom: "24px" }}>
+            <p style={{ color: "#666666", fontSize: "16px", lineHeight: 1.75, marginBottom: "24px" }}>
               {recipe.description}
             </p>
 
             {/* Meta info */}
             <div className="grid grid-cols-3 gap-4 mb-8">
               {[
-                { icon: Clock, label: "Waktu Masak", value: recipe.cookTime, color: "#8B5E3C" },
+                { icon: Clock, label: "Waktu Masak", value: recipe.cookTime, color: "#EE3F24" },
                 { icon: ChefHat, label: "Kesulitan", value: recipe.difficulty, color: difficultyColor[recipe.difficulty] },
-                { icon: Wallet, label: "Per Porsi", value: `Rp ${(recipe.pricePerServing).toLocaleString("id-ID")}`, color: "#6B7C45" },
+                { icon: Wallet, label: "Per Porsi", value: `Rp ${(recipe.pricePerServing).toLocaleString("id-ID")}`, color: "#023820" },
               ].map((meta) => (
                 <div
                   key={meta.label}
                   className="rounded-xl p-4 text-center"
-                  style={{ backgroundColor: "#FFFBF5", border: "1px solid rgba(212, 169, 106, 0.15)" }}
+                  style={{ backgroundColor: "#FFFFFF", border: "1px solid #E0E0E0" }}
                 >
                   <div className="w-9 h-9 rounded-full flex items-center justify-center mx-auto mb-2" style={{ backgroundColor: meta.color + "18" }}>
                     <meta.icon className="w-5 h-5" style={{ color: meta.color }} />
                   </div>
-                  <p style={{ color: "#A08060", fontSize: "11px", marginBottom: "2px" }}>{meta.label}</p>
-                  <p style={{ color: "#2C1810", fontSize: "14px", fontWeight: 600 }}>{meta.value}</p>
+                  <p style={{ color: "#666666", fontSize: "11px", marginBottom: "2px" }}>{meta.label}</p>
+                  <p style={{ color: "#023820", fontSize: "14px", fontWeight: 600 }}>{meta.value}</p>
                 </div>
               ))}
             </div>
@@ -145,34 +145,34 @@ export function DetailResep() {
             {/* ─── PORTION SELECTOR ─── */}
             <div
               className="rounded-2xl p-5 mb-8"
-              style={{ backgroundColor: "#FFFBF5", border: "1.5px solid rgba(212, 169, 106, 0.25)" }}
+              style={{ backgroundColor: "#FFFFFF", border: "1.5px solid #E0E0E0" }}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5" style={{ color: "#8B5E3C" }} />
-                  <span style={{ color: "#2C1810", fontSize: "15px", fontWeight: 600 }}>Jumlah Porsi</span>
+                  <Users className="w-5 h-5" style={{ color: "#EE3F24" }} />
+                  <span style={{ color: "#023820", fontSize: "15px", fontWeight: 600 }}>Jumlah Porsi</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setServings((s) => Math.max(1, s - 1))}
                     className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
-                    style={{ backgroundColor: servings <= 1 ? "#F5ECD7" : "#8B5E3C", color: servings <= 1 ? "#C4A882" : "white" }}
+                    style={{ backgroundColor: servings <= 1 ? "#E0E0E0" : "#EE3F24", color: servings <= 1 ? "#999" : "white" }}
                     disabled={servings <= 1}
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "24px", fontWeight: 700, minWidth: "36px", textAlign: "center" }}>
+                  <span style={{ fontFamily: "'Playfair Display', serif", color: "#023820", fontSize: "24px", fontWeight: 700, minWidth: "36px", textAlign: "center" }}>
                     {servings}
                   </span>
                   <button
                     onClick={() => setServings((s) => Math.min(20, s + 1))}
                     className="w-9 h-9 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: "#8B5E3C", color: "white" }}
+                    style={{ backgroundColor: "#EE3F24", color: "white" }}
                   >
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
-                <span style={{ color: "#8B7355", fontSize: "13px" }}>
+                <span style={{ color: "#666666", fontSize: "13px" }}>
                   Total: ~Rp {(recipe.pricePerServing * servings).toLocaleString("id-ID")}
                 </span>
               </div>
@@ -180,7 +180,7 @@ export function DetailResep() {
 
             {/* ─── DAFTAR BAHAN ─── */}
             <div className="mb-8">
-              <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "22px", fontWeight: 600, marginBottom: "16px" }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#023820", fontSize: "22px", fontWeight: 600, marginBottom: "16px" }}>
                 Daftar Bahan
               </h2>
               <div className="space-y-2">
@@ -188,15 +188,15 @@ export function DetailResep() {
                   <div
                     key={i}
                     className="flex items-center justify-between px-4 py-3 rounded-xl"
-                    style={{ backgroundColor: i % 2 === 0 ? "#FFFBF5" : "#FDF6EC", border: "1px solid rgba(212, 169, 106, 0.1)" }}
+                    style={{ backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#F5F5F5", border: "1px solid #E0E0E0" }}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "#F5ECD7", color: "#8B5E3C" }}>
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "#FFEFCB", color: "#EE3F24" }}>
                         {i + 1}
                       </div>
-                      <span style={{ color: "#3D2B1F", fontSize: "14px" }}>{ing.name}</span>
+                      <span style={{ color: "#023820", fontSize: "14px" }}>{ing.name}</span>
                     </div>
-                    <span style={{ color: "#8B5E3C", fontSize: "14px", fontWeight: 600 }}>
+                    <span style={{ color: "#EE3F24", fontSize: "14px", fontWeight: 600 }}>
                       {ing.amount} {ing.unit}
                     </span>
                   </div>
@@ -206,7 +206,7 @@ export function DetailResep() {
 
             {/* ─── LANGKAH MEMASAK ─── */}
             <div className="mb-8">
-              <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#2C1810", fontSize: "22px", fontWeight: 600, marginBottom: "16px" }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", color: "#023820", fontSize: "22px", fontWeight: 600, marginBottom: "16px" }}>
                 Langkah Memasak
               </h2>
               <div className="space-y-3">

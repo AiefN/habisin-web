@@ -92,23 +92,23 @@ export function JelajahiResep() {
   const hasFilters = selectedCuisine !== "Semua" || selectedDifficulty !== "Semua" || selectedBudget !== 0 || selectedCookTime !== 0 || selectedTypes.length > 0 || search !== "";
 
   return (
-    <div style={{ backgroundColor: "#FDF6EC", minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ backgroundColor: "#F5F5F5", minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
       {/* Header */}
-      <div style={{ backgroundColor: "#2C1810" }} className="py-14 px-8">
+      <div style={{ backgroundColor: "#023820" }} className="py-14 px-8">
         <div className="max-w-[1440px] mx-auto">
-          <p style={{ color: "#D4A96A", fontSize: "13px", fontWeight: 600, letterSpacing: "1px", marginBottom: "8px" }}>
+          <p style={{ color: "#FFEFCB", fontSize: "13px", fontWeight: 600, letterSpacing: "1px", marginBottom: "8px" }}>
             🌍 RESEP INTERNASIONAL
           </p>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", color: "#F5ECD7", fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 700, marginBottom: "16px" }}>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", color: "#FFEFCB", fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 700, marginBottom: "16px" }}>
             Jelajahi Resep Dunia
           </h1>
-          <p style={{ color: "#A08060", fontSize: "16px", maxWidth: "520px", marginBottom: "28px" }}>
+          <p style={{ color: "#E8F5E9", fontSize: "16px", maxWidth: "520px", marginBottom: "28px" }}>
             Temukan resep dari berbagai negara, sesuaikan porsi dan budget Anda.
           </p>
 
           {/* Search Bar */}
           <div className="relative max-w-2xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: "#8B7355" }} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: "#666666" }} />
             <input
               type="text"
               value={search}
@@ -116,8 +116,8 @@ export function JelajahiResep() {
               placeholder="Cari resep, bahan, atau negara asal..."
               className="w-full pl-12 pr-12 py-4 rounded-2xl text-sm outline-none"
               style={{
-                backgroundColor: "#FFFBF5",
-                border: "1.5px solid rgba(212, 169, 106, 0.3)",
+                backgroundColor: "#FFFFFF",
+                border: "1.5px solid #E0E0E0",
                 color: "#3D2B1F",
               }}
             />
