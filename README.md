@@ -1,109 +1,110 @@
-# Cook Smart, Waste Less
+# Habisin
 
-> A sustainable recipe platform that helps you cook smarter, waste less, and eat better.
+Aplikasi resep untuk memasak lebih hemat, mengurangi sampah makanan, dan menemukan resep yang cocok untuk suasana hati.
 
-## About
+## Tentang
 
-Cook Smart, Waste Less is an international recipe platform designed to promote sustainable cooking practices. We help users discover recipes from around the world while reducing food waste and cooking within their budget.
+Habisin membantu pengguna menemukan resep internasional, merencanakan anggaran, dan mengolah sisa bahan menjadi hidangan baru.
 
-### Key Features
+### Fitur utama
 
-- 🌍 **International Recipes** - Explore dishes from 50+ countries
-- 💰 **Budget-Friendly** - Find recipes that fit your budget
-- ♻️ **Waste Transformation** - Turn kitchen leftovers into delicious recipes
-- 📊 **Smart Calculator** - Adjust portion sizes and track costs
-- 🎯 **Mood Finder** - Discover recipes based on your mood
-- 📱 **Responsive Design** - Works seamlessly on all devices
+- 🌍 Resep internasional
+- 💰 Rekomendasi berdasarkan anggaran
+- ♻️ Solusi untuk sisa bahan
+- 🎯 Pencarian resep berdasarkan mood
+- 📱 Desain responsif untuk perangkat mobile dan desktop
 
-## Tech Stack
+## Teknologi
 
 **Frontend:**
 - React + TypeScript
 - Vite
 - Tailwind CSS
-- shadcn/ui Components
+- shadcn/ui
 
 **Backend:**
 - Node.js
 - Express.js
+- Supabase
 
-## Getting Started
+## Persiapan
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+### Prasyarat
+- Node.js 18+
+- npm
 
-### Installation
+### Instalasi
 
-1. Clone the repository
+1. Clone repositori:
 ```bash
 git clone https://github.com/yourusername/habisin.git
 cd habisin
 ```
 
-2. Install dependencies
+2. Install frontend dependencies:
 ```bash
 npm install
 ```
 
-3. Install backend dependencies
+3. Install backend dependencies:
 ```bash
 cd backend
 npm install
 cd ..
 ```
 
-### Running Development Server
+### Konfigurasi backend
 
-Start the frontend development server:
+Buat file `.env` di folder `backend` dengan isi minimal:
+```env
+SUPABASE_URL=https://your-supabase-url
+SUPABASE_KEY=your-supabase-key
+PORT=3004
+```
+
+### Menjalankan aplikasi
+
+Jalankan frontend:
 ```bash
 npm run dev
 ```
 
-Start the backend server:
+Jalankan backend:
 ```bash
 cd backend
-npm start
+npm run dev
 ```
 
-The frontend will be available at `http://localhost:5173`
-The backend API will be available at `http://localhost:3002`
+Frontend tersedia di `http://localhost:5173`
+Backend tersedia di `http://localhost:3004`
 
-### Building for Production
+### Build produksi
 
 ```bash
 npm run build
 ```
 
-## Project Structure
+## Struktur proyek
 
 ```
 habisin/
 ├── src/
 │   ├── app/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/         # Page components
-│   │   ├── data/          # Recipe data
-│   │   └── styles/        # Global styles
+│   │   ├── components/     # Komponen UI
+│   │   ├── pages/         # Halaman aplikasi
+│   │   ├── data/          # Data resep
+│   │   └── styles/        # Styling global
 │   └── main.tsx
 ├── backend/
-│   ├── server.js          # Express server
-│   ├── routes/            # API routes
-│   ├── models/            # Data models
-│   └── seed.js            # Database seed
+│   ├── server.js          # Server Express
+│   ├── routes/            # Rute API
+│   ├── models/            # Model data
+│   └── seed.js            # Seed data (jika diperlukan)
 ├── index.html
 ├── vite.config.ts
 └── package.json
 ```
 
-## Contributing
+## Lisensi
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License.
-
-## Support
-
-For support, email hello@cooksmart.id or open an issue on GitHub.
+MIT License.
