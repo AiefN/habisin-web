@@ -6,6 +6,7 @@ import { DetailResep } from "./pages/DetailResep";
 import { WasteRecipe } from "./pages/WasteRecipe";
 import { BudgetRecipe } from "./pages/BudgetRecipe";
 import { MoodFinder } from "./pages/MoodFinder";
+import { AIAssistant } from "./pages/AIAssistant";
 import { ProfilPengguna } from "./pages/ProfilPengguna";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
       { path: "waste-recipe/:slug", Component: WasteRecipe },
       { path: "budget", Component: BudgetRecipe },
       { path: "mood", Component: MoodFinder },
+      { path: "ai-assistant", Component: AIAssistant },
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "profil", Component: ProfilPengguna },
