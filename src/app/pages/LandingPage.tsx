@@ -277,7 +277,7 @@ export function LandingPage() {
               </Link>
             </div>
 
-            <div className="col-span-12 lg:col-span-7 grid grid-cols-3 gap-4">
+            <div className="col-span-12 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {stats.map((stat) => (
                 <div
                   key={stat.label}

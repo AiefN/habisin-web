@@ -137,9 +137,25 @@ export function JelajahiResep() {
       </div>
 
       <div className="max-w-[1440px] mx-auto px-8 py-10">
+        {/* Mobile Filter Toggle */}
+        <div className="lg:hidden mb-6">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 transition-all"
+            style={{
+              backgroundColor: sidebarOpen ? "#8B5E3C" : "#FFFBF5",
+              borderColor: "#8B5E3C",
+              color: sidebarOpen ? "white" : "#8B5E3C",
+            }}
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            <span className="font-medium">{sidebarOpen ? "Tutup Filter" : "Buka Filter"}</span>
+          </button>
+        </div>
+
         <div className="grid grid-cols-12 gap-8">
           {/* ─── SIDEBAR FILTER ─── */}
-          <aside className="col-span-12 lg:col-span-3">
+          <aside className={`col-span-12 lg:col-span-3 ${sidebarOpen ? "block" : "hidden lg:block"}`}>
             <div
               className="rounded-2xl p-6 sticky top-24"
               style={{
