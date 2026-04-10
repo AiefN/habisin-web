@@ -124,20 +124,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const updateProfile = async (updates: Partial<User>) => {
-    if (user) {
-      try {
-        const response = await fetch(`${API_BASE}/users/${user.email}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updates),
-        });
-        if (response.ok) {
-          const updatedUser = await response.json();
-          setUser(updatedUser);
-        }
-      } catch (error) {
-        console.error('Update profile failed:', error);
+    if (!user) return;
+
+    try {
+      const response = await fetch(`${API_BASE}/users/${user.email}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      });
+      const responseBody = await response.json();
+
+      if (!response.ok) {
+        console.error('Update profile failed:', responseBody);
+        return;
       }
+
+      const updatedUser = responseBody as User;
+      setUser(updatedUser);
+
+      if (updatedUser.email && updatedUser.email !== user.email) {
+        localStorage.setItem('userEmail', updatedUser.email);
+      }
+    } catch (error) {
+      console.error('Update profile failed:', error);
     }
   };
 

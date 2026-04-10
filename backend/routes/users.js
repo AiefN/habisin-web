@@ -33,9 +33,19 @@ router.put("/:email", async (req, res) => {
     const { email } = req.params;
     const updates = req.body;
 
+    const allowedFields = [
+      'name', 'email', 'bio', 'location', 'avatar',
+      'favorites', 'saved', 'achievements', 'cookedCount',
+      'wasteSaved', 'totalSaved'
+    ];
+
+    const filteredUpdates = Object.fromEntries(
+      Object.entries(updates).filter(([key]) => allowedFields.includes(key))
+    );
+
     const { data: user, error } = await supabase
       .from('users')
-      .update(updates)
+      .update(filteredUpdates)
       .eq('email', email)
       .select();
 

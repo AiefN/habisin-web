@@ -13,7 +13,42 @@ export function DetailResep() {
 
   const [servings, setServings] = useState(recipe?.defaultServings ?? 2);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [shareMessage, setShareMessage] = useState<string | null>(null);
   const saved = user?.saved?.includes(recipe?.id || '') || false;
+
+  const handleSavedClick = async () => {
+    if (!user) {
+      window.alert('Silakan login dulu untuk menyimpan resep.');
+      return;
+    }
+
+    await toggleSaved(recipe.id);
+  };
+
+  const handleShare = async () => {
+    const shareUrl = `${window.location.origin}/resep/${recipe.id}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: recipe.name,
+          text: `Coba resep ${recipe.name} dari Habisin!`,
+          url: shareUrl,
+        });
+        setShareMessage('Berhasil dibagikan!');
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        setShareMessage('Link resep disalin ke clipboard.');
+      } else {
+        window.prompt('Salin link resep ini:', shareUrl);
+      }
+    } catch (error) {
+      console.error('Share failed:', error);
+      setShareMessage('Gagal membagikan. Coba lagi.');
+    }
+
+    setTimeout(() => setShareMessage(null), 3000);
+  };
 
   if (!recipe) {
     return (
@@ -79,7 +114,7 @@ export function DetailResep() {
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-3 mt-5">
                 <button
-                  onClick={() => toggleSaved(recipe.id)}
+                  onClick={handleSavedClick}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all"
                   style={{
                     backgroundColor: saved ? "#EE3F24" : "#FFFFFF",
@@ -91,6 +126,7 @@ export function DetailResep() {
                   {saved ? "Tersimpan" : "Simpan Resep"}
                 </button>
                 <button
+                  onClick={handleShare}
                   className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium"
                   style={{ backgroundColor: "#FFFBF5", color: "#8B7355", border: "1.5px solid rgba(139, 94, 60, 0.3)" }}
                 >
@@ -98,6 +134,11 @@ export function DetailResep() {
                   Bagikan
                 </button>
               </div>
+              {shareMessage && (
+                <div className="mt-3 text-sm" style={{ color: "#666666" }}>
+                  {shareMessage}
+                </div>
+              )}
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mt-4">
