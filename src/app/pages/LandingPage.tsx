@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { Calculator, Wallet, Recycle, ArrowRight, Star, Leaf, TrendingUp, Users, BookOpen } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
 import { recipes } from "../data/recipes";

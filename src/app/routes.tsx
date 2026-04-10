@@ -1,15 +1,15 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { LandingPage } from "./pages/LandingPage";
-import { JelajahiResep } from "./pages/JelajahiResep";
-import { DetailResep } from "./pages/DetailResep";
-import { WasteRecipe } from "./pages/WasteRecipe";
-import { BudgetRecipe } from "./pages/BudgetRecipe";
-import { MoodFinder } from "./pages/MoodFinder";
-import { AIAssistant } from "./pages/AIAssistant";
-import { ProfilPengguna } from "./pages/ProfilPengguna";
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
+import { LandingPage } from "./pages/LandingPage.tsx";
+import { JelajahiResep } from "./pages/JelajahiResep.tsx";
+import { DetailResep } from "./pages/DetailResep.tsx";
+import { WasteRecipe } from "./pages/WasteRecipe.tsx";
+import { BudgetRecipe } from "./pages/BudgetRecipe.tsx";
+import { MoodFinder } from "./pages/MoodFinder.tsx";
+import { AIAssistant } from "./pages/AIAssistant.tsx";
+import { ProfilPengguna } from "./pages/ProfilPengguna.tsx";
+import { Login } from "./pages/Login.tsx";
+import { Register } from "./pages/Register.tsx";
 
 function NotFound() {
   return (

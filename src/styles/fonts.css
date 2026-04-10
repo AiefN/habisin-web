@@ -103,7 +103,7 @@ button {
 /* ─── MOBILE RESPONSIVENESS ─── */
 @media (max-width: 768px) {
   /* Reduce padding on mobile */
-  .max-w-[1440px] {
+  .max-w-\[1440px\] {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
@@ -142,7 +142,7 @@ button {
 
 /* ─── TABLET RESPONSIVENESS ─── */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .max-w-[1440px] {
+  .max-w-\[1440px\] {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
   }

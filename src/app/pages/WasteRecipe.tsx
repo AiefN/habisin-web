@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router";
+import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Leaf, Recycle, Clock, Check, ShoppingBag } from "lucide-react";
 import { wasteRecipes } from "../data/recipes";
 import { useState } from "react";

@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { Search, SlidersHorizontal, ChevronDown, X, Filter } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
 import { recipes as sampleRecipes } from "../data/recipes";
+import { useAuth } from "../AuthContext";
 
 const cuisines = ["Semua", "Italia", "Jepang", "Korea", "Thailand", "Indonesia"];
 const difficulties = ["Semua", "Mudah", "Sedang", "Sulit"];
@@ -22,6 +23,7 @@ const cookTimes = [
 const typeOptions = ["Vegetarian", "Sehat", "Cepat Dimasak", "Non-Vegetarian"];
 
 export function JelajahiResep() {
+  const { user, toggleFavorite } = useAuth();
   const [search, setSearch] = useState("");
   const [selectedCuisine, setSelectedCuisine] = useState("Semua");
   const [selectedDifficulty, setSelectedDifficulty] = useState("Semua");
@@ -327,7 +329,12 @@ export function JelajahiResep() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 {filtered.map((recipe) => (
-                  <RecipeCard key={recipe.id} recipe={recipe} />
+                  <RecipeCard
+                    key={recipe.id}
+                    recipe={recipe}
+                    isFavorite={user?.favorites?.includes(recipe.id) || false}
+                    onFavorite={() => toggleFavorite(recipe.id)}
+                  />
                 ))}
               </div>
             )}

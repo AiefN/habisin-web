@@ -17,9 +17,11 @@ console.log("Supabase connected:", supabaseUrl ? "Yes" : "No");
 
 const recipesRoute = require("./routes/recipes");
 const budgetRoute = require("./routes/budget");
+const usersRoute = require("./routes/users");
 
 app.use("/api/recipes", recipesRoute);
 app.use("/api/budget", budgetRoute);
+app.use("/api/users", usersRoute);
 
 const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {

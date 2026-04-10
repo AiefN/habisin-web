@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   User, Heart, Bookmark, Clock, Wallet, Settings, Camera, Star, ChefHat,
-  Leaf, BarChart2, Calendar, Edit3, ArrowRight, Award
+  Leaf, BarChart2, Calendar, Edit3, ArrowRight, Award, Save, X
 } from "lucide-react";
 import { recipes } from "../data/recipes";
 import { RecipeCard } from "../components/RecipeCard";
+import { useAuth } from "../AuthContext";
 
 const AVATAR_URL = "https://images.unsplash.com/photo-1752652015503-4ada94935172?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=200";
 
@@ -16,43 +17,68 @@ const tabs = [
   { id: "mealplan", label: "Meal Plan", icon: Calendar },
 ];
 
-const cookingHistory = [
-  { recipe: recipes[0], date: "Hari ini, 12:30", rating: 5 },
-  { recipe: recipes[2], date: "Kemarin, 19:00", rating: 4 },
-  { recipe: recipes[4], date: "3 hari lalu", rating: 5 },
-  { recipe: recipes[6], date: "5 hari lalu", rating: 3 },
-];
-
-const mealPlan = [
-  { day: "Senin", breakfast: "Miso Soup", lunch: "Bibimbap", dinner: "Rendang Sapi" },
-  { day: "Selasa", breakfast: "Nasi Goreng", lunch: "Pad Thai", dinner: "Spaghetti Carbonara" },
-  { day: "Rabu", breakfast: "Miso Soup", lunch: "Pizza Margherita", dinner: "Ramen Shoyu" },
-  { day: "Kamis", breakfast: "Nasi Goreng", lunch: "Bibimbap", dinner: "Pad Thai" },
-  { day: "Jumat", breakfast: "Miso Soup", lunch: "Rendang Sapi", dinner: "Spaghetti Carbonara" },
-  { day: "Sabtu", breakfast: "Nasi Goreng", lunch: "Ramen Shoyu", dinner: "Pizza Margherita" },
-  { day: "Minggu", breakfast: "Miso Soup", lunch: "Pad Thai", dinner: "Bibimbap" },
-];
-
-const stats = [
-  { icon: ChefHat, label: "Resep Dimasak", value: "48", color: "#8B5E3C" },
-  { icon: Heart, label: "Resep Favorit", value: "12", color: "#C4472A" },
-  { icon: Leaf, label: "Food Waste Hemat", value: "2.1kg", color: "#6B7C45" },
-  { icon: Wallet, label: "Total Hemat", value: "Rp 340K", color: "#C4872A" },
-];
-
-const achievements = [
-  { title: "Chef Pemula", desc: "Memasak 10 resep pertama", icon: "🍳", earned: true },
-  { title: "Zero Waste Hero", desc: "Manfaatkan 5 sisa bahan", icon: "♻️", earned: true },
-  { title: "Budget Master", desc: "Masak 20 resep hemat", icon: "💰", earned: true },
+const defaultAchievements = [
+  { title: "Chef Pemula", desc: "Masak 10 resep pertama", icon: "🍳", earned: false },
+  { title: "Zero Waste Hero", desc: "Manfaatkan 5 sisa bahan", icon: "♻️", earned: false },
+  { title: "Budget Master", desc: "Masak 20 resep hemat", icon: "💰", earned: false },
   { title: "World Explorer", desc: "Coba masakan 5 negara", icon: "🌍", earned: false },
 ];
 
 export function ProfilPengguna() {
+  const { user, updateProfile } = useAuth();
   const [activeTab, setActiveTab] = useState("favorit");
   const [weeklyBudget, setWeeklyBudget] = useState(350000);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    name: user?.name || '',
+    email: user?.email || '',
+    bio: user?.bio || '',
+    location: user?.location || ''
+  });
 
-  const favoriteRecipes = recipes.slice(0, 4);
-  const savedRecipes = recipes.slice(2, 6);
+  useEffect(() => {
+    if (user) {
+      setEditForm({
+        name: user.name || '',
+        email: user.email || '',
+        bio: user.bio || '',
+        location: user.location || ''
+      });
+    }
+  }, [user]);
+
+  const handleEditToggle = async () => {
+    if (isEditing) {
+      // Save changes
+      await updateProfile(editForm);
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleCancelEdit = () => {
+    setEditForm({
+      name: user?.name || '',
+      email: user?.email || '',
+      bio: user?.bio || '',
+      location: user?.location || ''
+    });
+    setIsEditing(false);
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setEditForm(prev => ({ ...prev, [field]: value }));
+  };
+
+  const favoriteRecipes = recipes.filter(r => user?.favorites?.includes(r.id));
+  const savedRecipes = recipes.filter(r => user?.saved?.includes(r.id));
+  const achievements = user?.achievements ?? defaultAchievements;
+  const earnedAchievements = achievements.filter((ach) => ach.earned);
+  const stats = [
+    { icon: ChefHat, label: "Resep Dimasak", value: user?.cookedCount ?? 0, color: "#8B5E3C" },
+    { icon: Heart, label: "Resep Favorit", value: user?.favorites?.length ?? 0, color: "#C4472A" },
+    { icon: Leaf, label: "Food Waste Hemat", value: `${user?.wasteSaved ?? 0}kg`, color: "#6B7C45" },
+    { icon: Wallet, label: "Total Hemat", value: user?.totalSaved ? `Rp ${user.totalSaved.toLocaleString("id-ID")}` : "Rp 0", color: "#C4872A" },
+  ];
 
   return (
     <div style={{ backgroundColor: "#FDF6EC", minHeight: "100vh", fontFamily: "'Inter', sans-serif" }}>
@@ -64,7 +90,7 @@ export function ProfilPengguna() {
             <div className="col-span-12 md:col-span-6 flex items-center gap-6">
               <div className="relative">
                 <div className="w-24 h-24 rounded-full overflow-hidden" style={{ border: "3px solid #D4A96A" }}>
-                  <img src={AVATAR_URL} alt="Avatar" className="w-full h-full object-cover" />
+                  <img src={user?.avatar || AVATAR_URL} alt="Avatar" className="w-full h-full object-cover" />
                 </div>
                 <button
                   className="absolute bottom-0 right-0 w-8 h-8 rounded-full flex items-center justify-center"
@@ -73,22 +99,95 @@ export function ProfilPengguna() {
                   <Camera className="w-4 h-4 text-white" />
                 </button>
               </div>
-              <div>
+              <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <h1 style={{ fontFamily: "'Playfair Display', serif", color: "#F5ECD7", fontSize: "24px", fontWeight: 700 }}>
-                    Sari Dewi
-                  </h1>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={editForm.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      className="text-2xl font-bold bg-transparent border-b border-[#D4A96A] text-[#F5ECD7] placeholder-[#A08060] focus:outline-none"
+                      placeholder="Nama"
+                    />
+                  ) : (
+                    <h1 style={{ fontFamily: "'Playfair Display', serif", color: "#F5ECD7", fontSize: "24px", fontWeight: 700 }}>
+                      {user?.name || 'Nama Pengguna'}
+                    </h1>
+                  )}
                   <div className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: "rgba(212, 169, 106, 0.25)", color: "#D4A96A" }}>
                     ⭐ Pro
                   </div>
                 </div>
-                <p style={{ color: "#A08060", fontSize: "14px", marginBottom: "8px" }}>sari.dewi@email.com</p>
+                <p style={{ color: "#A08060", fontSize: "14px", marginBottom: "8px" }}>
+                  {isEditing ? (
+                    <input
+                      type="email"
+                      value={editForm.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      className="bg-transparent border-b border-[#D4A96A] text-[#A08060] placeholder-[#A08060] focus:outline-none"
+                      placeholder="Email"
+                    />
+                  ) : (
+                    user?.email || 'email@example.com'
+                  )}
+                </p>
                 <p style={{ color: "#8B7355", fontSize: "13px" }}>
-                  📍 Jakarta, Indonesia · Bergabung Maret 2024
+                  📍 {isEditing ? (
+                    <input
+                      type="text"
+                      value={editForm.location}
+                      onChange={(e) => handleInputChange('location', e.target.value)}
+                      className="bg-transparent border-b border-[#D4A96A] text-[#8B7355] placeholder-[#8B7355] focus:outline-none"
+                      placeholder="Lokasi"
+                    />
+                  ) : (
+                    user?.location || 'Jakarta, Indonesia'
+                  )} · Bergabung Maret 2024
                 </p>
                 <p style={{ color: "#D4A96A", fontSize: "13px", marginTop: "6px", fontStyle: "italic" }}>
-                  "Memasak adalah bahasa cinta yang universal" 🍳
+                  {isEditing ? (
+                    <textarea
+                      value={editForm.bio}
+                      onChange={(e) => handleInputChange('bio', e.target.value)}
+                      className="bg-transparent border-b border-[#D4A96A] text-[#D4A96A] placeholder-[#D4A96A] focus:outline-none resize-none"
+                      placeholder="Bio"
+                      rows={2}
+                    />
+                  ) : (
+                    user?.bio || '"Memasak adalah bahasa cinta yang universal" 🍳'
+                  )}
                 </p>
+                <div className="flex gap-2 mt-4">
+                  {isEditing ? (
+                    <>
+                      <button
+                        onClick={handleEditToggle}
+                        className="px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
+                        style={{ backgroundColor: "#8B5E3C", color: "#F5ECD7" }}
+                      >
+                        <Save className="w-4 h-4" />
+                        Simpan
+                      </button>
+                      <button
+                        onClick={handleCancelEdit}
+                        className="px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
+                        style={{ backgroundColor: "#C4472A", color: "#F5ECD7" }}
+                      >
+                        <X className="w-4 h-4" />
+                        Batal
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
+                      style={{ backgroundColor: "#8B5E3C", color: "#F5ECD7" }}
+                    >
+                      <Edit3 className="w-4 h-4" />
+                      Edit Profil
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -115,25 +214,32 @@ export function ProfilPengguna() {
           {/* Achievements */}
           <div className="mt-8 pt-6" style={{ borderTop: "1px solid rgba(212, 169, 106, 0.15)" }}>
             <p style={{ color: "#A08060", fontSize: "13px", marginBottom: "10px" }}>🏆 Pencapaian</p>
-            <div className="flex flex-wrap gap-3">
-              {achievements.map((ach) => (
-                <div
-                  key={ach.title}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl"
-                  style={{
-                    backgroundColor: ach.earned ? "rgba(212, 169, 106, 0.15)" : "rgba(255, 251, 245, 0.04)",
-                    border: `1px solid ${ach.earned ? "rgba(212, 169, 106, 0.3)" : "rgba(255, 251, 245, 0.08)"}`,
-                    opacity: ach.earned ? 1 : 0.5,
-                  }}
-                >
-                  <span style={{ fontSize: "16px" }}>{ach.icon}</span>
-                  <div>
-                    <p style={{ color: ach.earned ? "#D4A96A" : "#6B5040", fontSize: "12px", fontWeight: 600 }}>{ach.title}</p>
-                    <p style={{ color: "#6B5040", fontSize: "10px" }}>{ach.desc}</p>
+            {earnedAchievements.length === 0 ? (
+              <div className="rounded-2xl p-6" style={{ backgroundColor: "#FFFBF5", border: "1px solid rgba(212, 169, 106, 0.15)" }}>
+                <p style={{ color: "#6B7355", fontSize: "14px" }}>
+                  Belum ada pencapaian. Masak beberapa resep atau simpan resep untuk mendapatkan penghargaan.
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-3">
+                {earnedAchievements.map((ach) => (
+                  <div
+                    key={ach.title}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl"
+                    style={{
+                      backgroundColor: "rgba(212, 169, 106, 0.15)",
+                      border: "1px solid rgba(212, 169, 106, 0.3)",
+                    }}
+                  >
+                    <span style={{ fontSize: "16px" }}>{ach.icon}</span>
+                    <div>
+                      <p style={{ color: "#D4A96A", fontSize: "12px", fontWeight: 600 }}>{ach.title}</p>
+                      <p style={{ color: "#6B5040", fontSize: "10px" }}>{ach.desc}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

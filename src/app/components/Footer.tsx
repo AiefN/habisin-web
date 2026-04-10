@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { ChefHat, Mail, Instagram, Twitter, Leaf } from "lucide-react";
 
 export function Footer() {

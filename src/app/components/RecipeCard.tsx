@@ -1,10 +1,12 @@
-import { Link } from "react-router";
-import { Clock, ChefHat, Wallet } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Clock, ChefHat, Wallet, Heart } from "lucide-react";
 import { Recipe } from "../data/recipes";
 
 interface RecipeCardProps {
   recipe: Recipe;
   compact?: boolean;
+  isFavorite?: boolean;
+  onFavorite?: () => void;
 }
 
 const difficultyColor: Record<string, string> = {
@@ -13,7 +15,12 @@ const difficultyColor: Record<string, string> = {
   Sulit: "#B84040",
 };
 
-export function RecipeCard({ recipe, compact = false }: RecipeCardProps) {
+export function RecipeCard({ recipe, compact = false, isFavorite = false, onFavorite }: RecipeCardProps) {
+  const handleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onFavorite?.();
+  };
   return (
     <Link
       to={`/resep/${recipe.id}`}
@@ -59,6 +66,17 @@ export function RecipeCard({ recipe, compact = false }: RecipeCardProps) {
         >
           {recipe.difficulty}
         </div>
+        {/* Favorite button */}
+        <button
+          onClick={handleFavorite}
+          className="absolute bottom-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all"
+          style={{
+            backgroundColor: isFavorite ? "#EE3F24" : "rgba(255, 255, 255, 0.9)",
+            border: "1px solid rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <Heart className={`w-4 h-4 ${isFavorite ? 'fill-white text-white' : 'text-gray-600'}`} />
+        </button>
       </div>
 
       {/* Content */}

@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Clock, ChefHat, Wallet, Minus, Plus, Users, Leaf, ArrowLeft, Recycle, Check, BookmarkPlus, Share2 } from "lucide-react";
 import { recipes } from "../data/recipes";
 import { RecipeCard } from "../components/RecipeCard";
+import { useAuth } from "../AuthContext";
 
 export function DetailResep() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { user, toggleSaved } = useAuth();
   const recipe = recipes.find((r) => r.id === id);
 
   const [servings, setServings] = useState(recipe?.defaultServings ?? 2);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const [saved, setSaved] = useState(false);
+  const saved = user?.saved?.includes(recipe?.id || '') || false;
 
   if (!recipe) {
     return (
@@ -77,7 +79,7 @@ export function DetailResep() {
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-3 mt-5">
                 <button
-                  onClick={() => setSaved(!saved)}
+                  onClick={() => toggleSaved(recipe.id)}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all"
                   style={{
                     backgroundColor: saved ? "#EE3F24" : "#FFFFFF",
