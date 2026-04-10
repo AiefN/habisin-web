@@ -47,8 +47,8 @@ export function DetailResep() {
   return (
     <div style={{ backgroundColor: "#F5F5F5", fontFamily: "'Inter', sans-serif", minHeight: "100vh" }}>
       {/* Breadcrumb */}
-      <div style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E0E0E0" }} className="px-8 py-4">
-        <div className="max-w-[1440px] mx-auto flex items-center gap-2">
+      <div style={{ backgroundColor: "#FFFFFF", borderBottom: "1px solid #E0E0E0" }} className="px-4 sm:px-6 py-4">
+        <div className="max-w-[1440px] mx-auto flex flex-wrap items-center gap-2">
           <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm transition-colors" style={{ color: "#666666" }}>
             <ArrowLeft className="w-4 h-4" />
             Kembali
@@ -60,23 +60,22 @@ export function DetailResep() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-8 py-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
         {/* ─── TWO-COLUMN LAYOUT ─── */}
         <div className="grid grid-cols-12 gap-10 mb-14">
           {/* Left: Image */}
           <div className="col-span-12 lg:col-span-5">
-            <div className="sticky top-24">
+            <div className="lg:sticky lg:top-24">
               <div className="rounded-3xl overflow-hidden" style={{ boxShadow: "0 8px 40px rgba(44, 24, 16, 0.18)" }}>
                 <img
                   src={recipe.image}
                   alt={recipe.name}
-                  className="w-full object-cover"
-                  style={{ height: "420px" }}
+                  className="w-full h-[260px] sm:h-[320px] md:h-[420px] object-cover"
                 />
               </div>
 
               {/* Action buttons */}
-              <div className="flex gap-3 mt-5">
+              <div className="flex flex-col sm:flex-row gap-3 mt-5">
                 <button
                   onClick={() => setSaved(!saved)}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all"
@@ -122,7 +121,7 @@ export function DetailResep() {
             </p>
 
             {/* Meta info */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
                 { icon: Clock, label: "Waktu Masak", value: recipe.cookTime, color: "#EE3F24" },
                 { icon: ChefHat, label: "Kesulitan", value: recipe.difficulty, color: difficultyColor[recipe.difficulty] },
@@ -147,7 +146,7 @@ export function DetailResep() {
               className="rounded-2xl p-5 mb-8"
               style={{ backgroundColor: "#FFFFFF", border: "1.5px solid #E0E0E0" }}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2">
                   <Users className="w-5 h-5" style={{ color: "#EE3F24" }} />
                   <span style={{ color: "#023820", fontSize: "15px", fontWeight: 600 }}>Jumlah Porsi</span>
