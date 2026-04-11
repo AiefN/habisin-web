@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.statusCode = 405;
     return res.end('Method Not Allowed');
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   }
 
   const lower = message.toLowerCase();
-  let reply = null;
+  let reply;
 
   if (lower.includes('pengganti') || lower.includes('ganti') || lower.includes('substitusi')) {
     reply = 'Jika bahan utama tidak tersedia, coba bahan pengganti serupa seperti telur untuk yogurt, santan untuk krim, atau alpukat untuk minyak. Beri tahu saya bahan spesifik dan saya bantu cari pengganti.';
@@ -40,4 +40,4 @@ module.exports = async (req, res) => {
 
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ reply }));
-};
+}
