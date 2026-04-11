@@ -11,7 +11,7 @@ const defaultMessages: ChatMessage[] = [
   {
     id: 1,
     role: 'assistant',
-    text: 'Halo! Saya adalah AI Cooking Assistant Anda. Saya siap membantu dengan:\n\n• Saran resep berdasarkan bahan yang tersedia\n• Bahan pengganti ketika bahan utama tidak ada\n• Teknik memasak dan tips dapur\n• Cara memanfaatkan sisa bahan agar tidak terbuang',
+    text: 'Halo! Saya siap membantu perjalanan memasak Anda dengan saran resep, bahan pengganti, teknik memasak, dan cara memanfaatkan sisa bahan agar tidak terbuang.',
   },
 ];
 
@@ -22,7 +22,7 @@ const quickReplies = [
   'Bumbu dasar indor',
 ];
 
-const AIAssistant: React.FC = () => {
+const CookingAssistant: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>(defaultMessages);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -109,8 +109,8 @@ const AIAssistant: React.FC = () => {
 
           <div className="mt-8 space-y-3">
             <div className="rounded-3xl bg-[#F2F4F6] p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6B7C8D]">Chef AI</p>
-              <p className="mt-2 text-sm text-[#1E2F31]">AI yang siap membantu Anda memasak lebih pintar dan mengurangi food waste.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6B7C8D]">Chef Assistant</p>
+              <p className="mt-2 text-sm text-[#1E2F31]">Asisten dapur yang siap membantu Anda memasak lebih pintar dan mengurangi food waste.</p>
               <div className="mt-4 flex items-center gap-2 text-sm text-[#3C522D]">
                 <CircleDot className="h-3 w-3 text-[#3C522D]" />
                 <span>Online</span>
@@ -123,13 +123,13 @@ const AIAssistant: React.FC = () => {
           <div className="flex flex-col gap-4 rounded-[32px] bg-[#274524] p-6 text-white shadow-[0_12px_24px_rgba(0,0,0,0.12)]">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.25em] text-[#D4A96A]">AI Cooking Assistant</p>
+                <p className="text-sm uppercase tracking-[0.25em] text-[#D4A96A]">Resep Pintar</p>
                 <h1 className="mt-2 text-2xl font-semibold">Siap membantu perjalanan memasak Anda</h1>
               </div>
               <div className="rounded-2xl bg-[#2C3F24] px-3 py-2 text-sm text-[#C7D4B3]">Online</div>
             </div>
             <p className="text-sm leading-7 text-[#F0E7C4]">
-              Halo! Saya adalah AI Cooking Assistant Anda. Saya siap membantu dengan:
+              Halo! Saya siap membantu dengan:
             </p>
             <ul className="space-y-2 text-sm text-[#F0E7C4]">
               <li>• Saran resep berdasarkan bahan yang tersedia</li>
@@ -203,4 +203,4 @@ const AIAssistant: React.FC = () => {
   );
 };
 
-export { AIAssistant };
+export { CookingAssistant };

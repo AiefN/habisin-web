@@ -6,7 +6,7 @@ import { DetailResep } from "./pages/DetailResep.tsx";
 import { WasteRecipe } from "./pages/WasteRecipe.tsx";
 import { BudgetRecipe } from "./pages/BudgetRecipe.tsx";
 import { MoodFinder } from "./pages/MoodFinder.tsx";
-import { AIAssistant } from "./pages/AIAssistant.tsx";
+import { CookingAssistant } from "./pages/CookingAssistant.tsx";
 import { ProfilPengguna } from "./pages/ProfilPengguna.tsx";
 import { Login } from "./pages/Login.tsx";
 import { Register } from "./pages/Register.tsx";
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       { path: "waste-recipe/:slug", Component: WasteRecipe },
       { path: "budget", Component: BudgetRecipe },
       { path: "mood", Component: MoodFinder },
-      { path: "ai-assistant", Component: AIAssistant },
+      { path: "assistant", Component: CookingAssistant },
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "profil", Component: ProfilPengguna },
