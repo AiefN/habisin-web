@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       { path: "waste-recipe/:slug", Component: WasteRecipe },
       { path: "budget", Component: BudgetRecipe },
       { path: "mood", Component: MoodFinder },
-      { path: "assistant", Component: CookingAssistant },
+      { path: "bantuan", Component: CookingAssistant },
       { path: "login", Component: Login },
       { path: "register", Component: Register },
       { path: "profil", Component: ProfilPengguna },

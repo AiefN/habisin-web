@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
+import api from "../../lib/api";
 import { Search, SlidersHorizontal, ChevronDown, X, Filter } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
 import { recipes as sampleRecipes } from "../data/recipes";
@@ -37,11 +38,7 @@ export function JelajahiResep() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await fetch("/api/recipes");
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipes");
-        }
-        const data = await response.json();
+        const { data } = await api.get('/recipes');
 
         if (Array.isArray(data) && data.length > 0) {
           setRecipes(data);

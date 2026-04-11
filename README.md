@@ -23,8 +23,9 @@ Habisin membantu pengguna mencari resep, menentukan resep sesuai anggaran, dan m
 - shadcn/ui
 
 **API:**
+- Axios client di `src/lib/api.ts`
 - Node.js
-- Vercel serverless function untuk `api/assistant`
+- Vercel serverless function untuk fitur bantuan resep
 
 **Backend (opsional lokal):**
 - Node.js
@@ -71,6 +72,8 @@ Jika ingin mengubah port backend, buat file `.env` di root dan atur:
 VITE_BACKEND_PORT=3004
 ```
 
+Frontend menggunakan `src/lib/api.ts` sebagai helper Axios untuk memanggil endpoint `/api/*`, dan Vite akan meneruskan permintaan API ke backend lokal sesuai nilai `VITE_BACKEND_PORT`.
+
 ### Menjalankan aplikasi
 
 1. Jalankan backend lokal (opsional):
@@ -89,7 +92,7 @@ npm run dev
 http://localhost:5173
 ```
 
-Halaman `Bantuan Memasak` akan memanggil API internal pada `/api/assistant`.
+Halaman `Bantuan Memasak` akan memanggil API internal untuk memberikan saran memasak.
 
 ### Build produksi
 
@@ -101,14 +104,14 @@ npm run build
 
 Proyek ini disiapkan untuk dideploy ke Vercel.
 - `vercel.json` mengatur build frontend dan fungsi API
-- `api/assistant.js` adalah endpoint produksi untuk fitur bantuan resep
+- `api/assistant.js` adalah fungsi produksi untuk fitur bantuan resep
 
 ## Struktur proyek
 
 ```
 habisin/
 ├── api/
-│   └── assistant.js      # Fungsi API utama untuk fitur asisten resep
+│   └── assistant.js      # Fungsi API utama untuk fitur bantuan resep
 ├── src/
 │   ├── app/
 │   │   ├── components/   # Komponen antarmuka
@@ -129,7 +132,7 @@ habisin/
 
 ## Catatan
 
-- Untuk pengembangan lokal, frontend memanggil API pada `/api/assistant`.
+- Untuk pengembangan lokal, frontend memanggil API internal untuk fitur bantuan resep.
 - Pada produksi, API diproses oleh fungsi serverless di `api/assistant.js`.
 - Pastikan tidak menyimpan kunci rahasia langsung di repositori.
 

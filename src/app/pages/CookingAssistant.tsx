@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import api from '../../lib/api';
 import { MessageSquare, CircleDot, Send } from 'lucide-react';
 
 interface ChatMessage {
@@ -50,17 +51,8 @@ const CookingAssistant: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('/api/assistant', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmed }),
-      });
+      const { data } = await api.post('/assistant', { message: trimmed });
 
-      if (!response.ok) {
-        throw new Error('Gagal memproses permintaan.');
-      }
-
-      const data = await response.json();
       const assistantMessage: ChatMessage = {
         id: messages.length + 2,
         role: 'assistant',
@@ -109,8 +101,8 @@ const CookingAssistant: React.FC = () => {
 
           <div className="mt-8 space-y-3">
             <div className="rounded-3xl bg-[#F2F4F6] p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6B7C8D]">Chef Assistant</p>
-              <p className="mt-2 text-sm text-[#1E2F31]">Asisten dapur yang siap membantu Anda memasak lebih pintar dan mengurangi food waste.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6B7C8D]">Dapur Pintar</p>
+              <p className="mt-2 text-sm text-[#1E2F31]">Panduan dapur yang siap membantu Anda memasak lebih pintar dan mengurangi food waste.</p>
               <div className="mt-4 flex items-center gap-2 text-sm text-[#3C522D]">
                 <CircleDot className="h-3 w-3 text-[#3C522D]" />
                 <span>Online</span>

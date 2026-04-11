@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Resep", path: "/resep" },
   { label: "Masak Sesuai Budget", path: "/budget" },
   { label: "Mood Finder", path: "/mood" },
-  { label: "Bantuan Memasak", path: "/assistant" },
+  { label: "Bantuan Memasak", path: "/bantuan" },
 ];
 
 export function Navbar() {

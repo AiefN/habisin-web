@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import api from "../../lib/api";
 import { Wallet, Search, ChefHat, Users, Minus, Plus, Flame, Leaf, Zap, Heart } from "lucide-react";
 import { RecipeCard } from "../components/RecipeCard";
 import { recipes as sampleRecipes } from "../data/recipes";
@@ -44,21 +45,12 @@ export function BudgetRecipe() {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/budget", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ budget }),
-      });
+      const { data } = await api.post('/budget', { budget });
 
       let filteredRecipes = sampleRecipes.filter((recipe) => recipe.pricePerServing <= budget);
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data && Array.isArray(data.recipes) && data.recipes.length > 0) {
-          filteredRecipes = data.recipes;
-        }
+      if (data && Array.isArray(data.recipes) && data.recipes.length > 0) {
+        filteredRecipes = data.recipes;
       }
 
       // Apply additional filters on frontend

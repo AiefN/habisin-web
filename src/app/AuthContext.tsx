@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import api from '../lib/api';
 
 interface Achievement {
   title: string;
@@ -36,10 +37,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_BASE = window.location.hostname === 'localhost' 
-  ? 'http://localhost:5000/api' 
-  : '/api';
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
@@ -53,11 +50,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchUser = async (email: string) => {
     try {
-      const response = await fetch(`${API_BASE}/users/${email}`);
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      }
+      const { data: userData } = await api.get(`/users/${email}`);
+    if (userData) {
+      setUser(userData);
+    }
     } catch (error) {
       console.error('Failed to fetch user:', error);
     }
@@ -72,9 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await fetch(`${API_BASE}/users/${email}`);
-      if (response.ok) {
-        const userData = await response.json();
+      const { data: userData } = await api.get(`/users/${email}`);
+      if (userData) {
         setUser(userData);
         localStorage.setItem('userEmail', email);
       } else {
@@ -108,13 +103,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         wasteSaved: 0,
         totalSaved: 0,
       };
-      const response = await fetch(`${API_BASE}/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser),
-      });
-      if (response.ok) {
-        const userData = await response.json();
+      const { data: userData } = await api.post('/users', newUser);
+      if (userData) {
         setUser(userData);
         localStorage.setItem('userEmail', email);
       }
@@ -127,19 +117,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!user) return;
 
     try {
-      const response = await fetch(`${API_BASE}/users/${user.email}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updates),
-      });
-      const responseBody = await response.json();
-
-      if (!response.ok) {
-        console.error('Update profile failed:', responseBody);
+      const { data: updatedUser } = await api.put(`/users/${user.email}`, updates);
+      if (!updatedUser) {
+        console.error('Update profile failed');
         return;
       }
-
-      const updatedUser = responseBody as User;
       setUser(updatedUser);
 
       if (updatedUser.email && updatedUser.email !== user.email) {
