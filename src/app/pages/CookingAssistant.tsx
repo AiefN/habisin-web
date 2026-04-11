@@ -70,7 +70,7 @@ const CookingAssistant: React.FC = () => {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
       console.error(err);
-      setError('Terjadi kesalahan saat mengambil balasan AI. Silakan coba lagi.');
+      setError('Terjadi kesalahan saat mengambil balasan. Silakan coba lagi.');
       const assistantMessage: ChatMessage = {
         id: messages.length + 2,
         role: 'assistant',
